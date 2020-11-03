@@ -1,5 +1,5 @@
 import { VNode, VNodeData } from './vnode'
-import { h } from './h'
+import { h, addNS } from './h'
 
 export interface ThunkData extends VNodeData {
   fn: () => VNode
@@ -16,10 +16,12 @@ export interface ThunkFn {
 }
 
 function copyToThunk (vnode: VNode, thunk: VNode): void {
+  const ns = thunk.data ? thunk.data.ns : null;
   (vnode.data as VNodeData).fn = (thunk.data as VNodeData).fn;
   (vnode.data as VNodeData).args = (thunk.data as VNodeData).args
   thunk.data = vnode.data
   thunk.children = vnode.children
+  if (ns) addNS(thunk.data, thunk.children as VNode[], thunk.sel);
   thunk.text = vnode.text
   thunk.elm = vnode.elm
 }

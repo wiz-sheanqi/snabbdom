@@ -6,7 +6,7 @@ export type VNodeChildElement = VNode | string | number | undefined | null
 export type ArrayOrElement<T> = T | T[]
 export type VNodeChildren = ArrayOrElement<VNodeChildElement>
 
-function addNS (data: any, children: VNodes | undefined, sel: string | undefined): void {
+export function addNS (data: any, children: VNodes | undefined, sel: string | undefined): void {
   data.ns = 'http://www.w3.org/2000/svg'
   if (sel !== 'foreignObject' && children !== undefined) {
     for (let i = 0; i < children.length; ++i) {
